@@ -6,10 +6,22 @@ import (
 	"github.com/sial-soft/users-api/services"
 	"github.com/sial-soft/users-api/utils/errors"
 	"net/http"
+	"strconv"
 )
 
 func GetUser(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "implement me!")
+	userId, userErr := strconv.ParseInt(c.Param("user_id"), 10, 64)
+	if userErr != nil {
+		err := errors.NewBadRequest("invalid user id")
+		c.JSON(err.Status, err)
+		return
+	}
+	user, err := services.GetUser(userId)
+	if err != nil {
+		c.JSON(err.Status, err)
+		return
+	}
+	c.JSON(http.StatusOK, user)
 }
 
 func CreateUser(c *gin.Context) {
