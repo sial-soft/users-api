@@ -2,6 +2,7 @@ package users
 
 import (
 	"fmt"
+	"github.com/sial-soft/users-api/utils/date"
 	"github.com/sial-soft/users-api/utils/errors"
 )
 
@@ -27,6 +28,7 @@ func (u *User) Save() *errors.RestErr {
 	if current != nil {
 		return errors.NewBadRequest(fmt.Sprintf("user %d alreay exists", u.Id))
 	}
+	u.CreateAt = date.GetNowString()
 	usersDB[u.Id] = u
 	return nil
 }
