@@ -10,4 +10,4 @@ create table users_db.users
 
 ALTER TABLE users_db.users
     ADD column status varchar(20) not null default '',
-    ADD column pasword varchar(30) not null default '';
+    ADD column password varchar(50) not null default '';
